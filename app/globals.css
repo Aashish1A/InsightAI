@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: 'Inter', sans-serif;
+    --font-urbanist: 'Urbanist', sans-serif;
+}
+
+@layer base {
+    body {
+        @apply bg-white text-sm text-gray-800 antialiased;
+    }
+}
