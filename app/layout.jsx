@@ -55,11 +55,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body>
-                <LenisScroll />
-                <Navbar />
+            <body className={`${inter.variable} ${urbanist.variable}`}>
                 {children}
-                <Footer />
             </body>
         </html>
     );

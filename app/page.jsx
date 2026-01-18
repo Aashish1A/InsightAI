@@ -4,16 +4,24 @@ import HeroSection from "@/sections/hero-section";
 import PricingSection from "@/sections/pricing-section";
 import StatsSection from "@/sections/stats-section";
 import TestimonialSection from "@/sections/testimonial-section";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import LenisScroll from "@/components/lenis";
 
 export default function Page() {
     return (
-        <main>
-            <HeroSection />
-            <StatsSection />
-            <FeaturesSection />
-            <FaqSection />
-            <PricingSection />
-            <TestimonialSection />
-        </main>
+        <>
+            <LenisScroll />
+            <Navbar />
+            <main>
+                <HeroSection />
+                <StatsSection />
+                <FeaturesSection />
+                <FaqSection />
+                <PricingSection />
+                <TestimonialSection />
+            </main>
+            <Footer />
+        </>
     );
 }
