@@ -17,9 +17,8 @@ export default function HeroSection() {
                             src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=50"
                             alt="userImage2" />
                     </div>
-                    <span>10K+</span>
                     <div className="h-5 w-px mx-1 bg-white rounded-full" />
-                    <span>Happy users worldwide</span>
+                    <span>AI-Powered Resume Builder & Content Suite</span>
                     <div className="h-5 w-px mx-1 bg-white rounded-full" />
                     <div className="flex items-center gap-1 pr-3">
                         <StarIcon className="size-4.5 fill-orange-500 stroke-orange-500" />
@@ -27,16 +26,16 @@ export default function HeroSection() {
                     </div>
                 </AnimatedContent>
                 <AnimatedContent distance={30} delay={0.1} className="relative">
-                    <h1 className="text-center font-urbanist text-5xl/15 md:text-6xl/18 mt-4 font-bold max-w-3xl">
-                        Create content faster with AI-powered tools
+                    <h1 className="text-center font-urbanist text-5xl/tight md:text-7xl/tight mt-4 font-extrabold max-w-4xl tracking-tight">
+                        Build Perfect Resumes <span className="text-4xl/tight md:text-6xl/tight font-bold bg-linear-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">& AI Content Instantly</span>
                     </h1>
                     <div className="absolute -top-5 right-13 hidden md:block">
                         <CustomIcon icon={SparkleIcon} dir="right" />
                     </div>
                 </AnimatedContent>
                 <AnimatedContent distance={30} delay={0.2}>
-                    <p className="text-center text-base/7 text-zinc-500 max-w-xl mt-4">
-                        InsightAI helps you generate articles, images, and resume insights using simple, AI-powered tools — all from one dashboard.
+                    <p className="text-center text-base/7 text-zinc-500 max-w-2xl mt-4">
+                        Create ATS-optimized resumes, check compatibility scores, and generate articles & images—all AI-powered in one dashboard.
                     </p>
                 </AnimatedContent>
                 <AnimatedContent className="flex flex-col md:flex-row items-center gap-4 mt-6 w-full md:w-auto">
@@ -44,7 +43,7 @@ export default function HeroSection() {
                         Get Started
                     </Link>
                     <Link href="/" className="relative py-3 md:py-2.5 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full">
-                        Watch Demo
+                        Start Creating
                         <AnimatedContent direction="horizontal" className="absolute size-8 pointer-events-none right-0 top-full -translate-y-1/2">
                             <Image
                                 src="/assets/mouse-arrow.svg"
