@@ -1,6 +1,22 @@
-import {FileTextIcon, ImageIcon, Wand2Icon, EraserIcon, ScanTextIcon, LayoutDashboardIcon,} from "lucide-react";
+import {FileTextIcon, ImageIcon, Wand2Icon, EraserIcon, ScanTextIcon, LayoutDashboardIcon, FileEditIcon, SearchCheckIcon} from "lucide-react";
 
 export const features = [
+    {
+        title: "AI Resume Builder",
+        description:
+            "Create professional, ATS-optimized resumes with AI assistance. Choose from templates and get intelligent content suggestions.",
+        icon: FileEditIcon,
+        cardBg: "bg-orange-100",
+        iconBg: "bg-orange-500",
+    },
+    {
+        title: "ATS Resume Scanner",
+        description:
+            "Scan your resume for ATS compatibility. Get a detailed score with keyword analysis and formatting recommendations.",
+        icon: SearchCheckIcon,
+        cardBg: "bg-teal-100",
+        iconBg: "bg-teal-500",
+    },
     {
         title: "AI Article Generator",
         description:
