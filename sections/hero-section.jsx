@@ -40,10 +40,10 @@ export default function HeroSection() {
                 </AnimatedContent>
                 <AnimatedContent className="flex flex-col md:flex-row items-center gap-4 mt-6 w-full md:w-auto">
                     <Link href="/" className="py-3 md:py-2.5 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full">
-                        Get Started
+                       Build My Resume
                     </Link>
                     <Link href="/" className="relative py-3 md:py-2.5 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full">
-                        Start Creating
+                        Check ATS Score
                         <AnimatedContent direction="horizontal" className="absolute size-8 pointer-events-none right-0 top-full -translate-y-1/2">
                             <Image
                                 src="/assets/mouse-arrow.svg"

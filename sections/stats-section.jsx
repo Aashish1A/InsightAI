@@ -6,23 +6,23 @@ export default function StatsSection() {
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex flex-col items-center gap-4 text-center">
                     <h3 className="text-4xl font-semibold font-urbanist">
-                        <CountUp from={0} to={3} />x
+                        <CountUp from={0} to={500} />+
                     </h3>
-                    <p className="text-gray-500">Faster AI agent development</p>
+                    <p className="text-gray-500">Resumes generated with AI</p>
                 </div>
 
                 <div className="flex flex-col items-center gap-4 text-center">
                     <h3 className="text-4xl font-semibold font-urbanist">
-                        <CountUp from={0} to={60} />%
+                        <CountUp from={0} to={85} />%
                     </h3>
-                    <p className="text-gray-500">Reduction in manual workflows</p>
+                    <p className="text-gray-500">Users got more interview calls</p>
                 </div>
 
                 <div className="flex flex-col items-center gap-4 text-center">
                     <h3 className="text-4xl font-semibold font-urbanist">
                         <CountUp from={0} to={99.9} />%
                     </h3>
-                    <p className="text-gray-500">Reliable agent execution uptime</p>
+                    <p className="text-gray-500">ATS compatibility success rate</p>
                 </div>
             </div>
         </section>

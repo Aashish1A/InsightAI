@@ -2,13 +2,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Home, PenSquare, Hash, Image as ImageIcon, Eraser, Scissors, FileText, MoreVertical } from "lucide-react";
+import { Home, PenSquare, Hash, Image as ImageIcon, Eraser, Scissors, FileText, MoreVertical, FileEditIcon } from "lucide-react";
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
     
     const navItems = [
         { name: "Dashboard", href: "/Dashboard", icon: Home },
+        { name: "Create Resume", href: "/Dashboard/resume-builder", icon: FileEditIcon },
         { name: "Write Article", href: "/Dashboard/write-article", icon: PenSquare },
         { name: "Blog Titles", href: "/Dashboard/blog-titles", icon: Hash },
         { name: "Generate Images", href: "/Dashboard/generate-images", icon: ImageIcon },
@@ -62,7 +63,7 @@ export default function DashboardLayout({ children }) {
                     {/* User Info Footer */}
                     <div className="p-3 border-t border-gray-100">
                         <div className="flex items-center gap-2">
-                            <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">
+                            <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white text-sm font-semibold shrink-0">
                                 A
                             </div>
                             <div className="flex-1 min-w-0">
