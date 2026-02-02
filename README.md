@@ -133,15 +133,6 @@ InsightAI/
 **Aashish Kumar**  
 [GitHub: @Aashish1A](https://github.com/Aashish1A)
 
----
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Clerk Authentication](https://clerk.dev/)
-- [Lucide Icons](https://lucide.dev/)
-
----
-
 <div align="center">
 
 Made with ❤️ by [Aashish Kumar](https://github.com/Aashish1A)
