@@ -8,6 +8,7 @@ import AnimatedContent from "./animated-content";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    
 
     return (
         <>
