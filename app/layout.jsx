@@ -1,8 +1,6 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import { Inter, Urbanist } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import LenisScroll from "@/components/lenis";
-import Footer from "@/components/footer";
 
 const inter = Inter({
     variable: "--font-sans",
@@ -55,9 +53,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={`${inter.variable} ${urbanist.variable}`}>
-                {children}
-            </body>
+            <ClerkProvider>
+                <body className={`${inter.variable} ${urbanist.variable}`}>
+                    {children}
+                </body>
+            </ClerkProvider>
         </html>
     );
 }
