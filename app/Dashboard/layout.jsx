@@ -2,12 +2,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Home, PenSquare, Hash, Image as ImageIcon, Eraser, Scissors, FileText, MoreVertical, FileEditIcon } from "lucide-react";
-import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
+import { Home, PenSquare, Hash, Image as ImageIcon, Eraser, Scissors, FileText, FileEditIcon, LogOut } from "lucide-react";
+import { Protect, SignedIn, SignedOut, useClerk, useUser } from "@clerk/nextjs";
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
     const { user } = useUser();
+    const { openUserProfile, signOut } = useClerk();
     
     const navItems = [
         { name: "Dashboard", href: "/Dashboard", icon: Home },
@@ -80,14 +81,18 @@ export default function DashboardLayout({ children }) {
                             <div className="size-10 rounded-full overflow-hidden shrink-0">
                                 <Image src={user?.imageUrl || "/assets/user.png"} alt={user?.fullName || "User"} width={40} height={40} className="object-cover" />
                             </div>
-                            <div className="flex-1 min-w-0">
+                            <button type="button" onClick={openUserProfile} className="flex-1 min-w-0 text-left" >
                                 <p className="text-xs font-medium text-zinc-900 truncate">
                                     {user?.fullName || "User"}
                                 </p>
-                                <p className="text-xs text-zinc-500">Premium Plan</p>
-                            </div>
-                            <button className="text-zinc-400 hover:text-zinc-600 shrink-0">
-                                <MoreVertical size={16} />
+                                <p className="text-xs text-zinc-500">
+                                    <Protect plan="premium" fallback="Free Plan">
+                                        Premium Plan
+                                    </Protect>
+                                </p>
+                            </button>
+                            <button type="button" onClick={() => signOut({ redirectUrl: "/" })} className="text-zinc-400 hover:text-zinc-600 cursor-pointer shrink-0" aria-label="Sign out" title="Sign out" >
+                                <LogOut size={16} />
                             </button>
                         </div>
                     </div>
