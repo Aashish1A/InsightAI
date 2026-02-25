@@ -6,6 +6,7 @@ export const pricing = [
         name: "Free",
         description: "Try InsightAI and explore core AI tools.",
         price: 0,
+        clerkPlanId: process.env.NEXT_PUBLIC_CLERK_PLAN_FREE_ID,
         linkText: "Start Free",
         linkUrl: "#",
         features: [
@@ -21,6 +22,7 @@ export const pricing = [
         name: "Starter",
         description: "For students and individuals using AI regularly.",
         price: 19,
+        clerkPlanId: process.env.NEXT_PUBLIC_CLERK_PLAN_STARTER_ID,
         linkText: "Get Started",
         linkUrl: "#",
         features: [
@@ -37,6 +39,7 @@ export const pricing = [
         type: "popular",
         description: "Best for creators and professionals.",
         price: 49,
+        clerkPlanId: process.env.NEXT_PUBLIC_CLERK_PLAN_PRO_ID,
         linkText: "Upgrade to Pro",
         linkUrl: "#",
         features: [
