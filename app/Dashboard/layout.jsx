@@ -1,14 +1,16 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
+import useCurrentPlan from "@/hooks/use-current-plan";
 import { usePathname } from "next/navigation";
 import { Home, PenSquare, Hash, Image as ImageIcon, Eraser, Scissors, FileText, FileEditIcon, LogOut } from "lucide-react";
-import { Protect, SignedIn, SignedOut, useClerk, useUser } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useClerk, useUser } from "@clerk/nextjs";
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
     const { user } = useUser();
     const { openUserProfile, signOut } = useClerk();
+    const { currentPlanName, isLoadingPlan } = useCurrentPlan();
     
     const navItems = [
         { name: "Dashboard", href: "/Dashboard", icon: Home },
@@ -86,9 +88,7 @@ export default function DashboardLayout({ children }) {
                                     {user?.fullName || "User"}
                                 </p>
                                 <p className="text-xs text-zinc-500">
-                                    <Protect plan="premium" fallback="Free Plan">
-                                        Premium Plan
-                                    </Protect>
+                                    {isLoadingPlan ? "Loading..." : `${currentPlanName} Plan`}
                                 </p>
                             </button>
                             <button type="button" onClick={() => signOut({ redirectUrl: "/" })} className="text-zinc-400 hover:text-zinc-600 cursor-pointer shrink-0" aria-label="Sign out" title="Sign out" >
