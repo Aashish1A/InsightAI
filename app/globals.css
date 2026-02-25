@@ -10,3 +10,11 @@
         @apply bg-white text-sm text-gray-800 antialiased;
     }
 }
+
+.reset-tw, .reset-tw * {
+  all: revert !important;
+}
+
+.cl-drawerRoot {
+  z-index: 10;
+}
