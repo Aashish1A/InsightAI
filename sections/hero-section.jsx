@@ -1,5 +1,6 @@
 import AnimatedContent from "@/components/animated-content";
 import CustomIcon from "@/components/custom-icon";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { SparkleIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -35,15 +36,33 @@ export default function HeroSection() {
                     </p>
                 </AnimatedContent>
                 <AnimatedContent className="flex flex-col md:flex-row items-center gap-4 mt-6 w-full md:w-auto">
-                    <Link href="/Dashboard" className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full">
-                       Build My Resume
-                    </Link>
-                    <Link href="/ATS-Checker" className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full">
-                        Check ATS Score
-                        <AnimatedContent direction="horizontal" className="absolute size-8 pointer-events-none right-0 top-full -translate-y-1/2">
-                            <Image src="/assets/mouse-arrow.svg" alt="mouse-arrow" width={24} height={24} />
-                        </AnimatedContent>
-                    </Link>
+                    <SignedIn>
+                        <Link href="/Dashboard" className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full">
+                           Build My Resume
+                        </Link>
+                        <Link href="/ATS-Checker" className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full">
+                            Check ATS Score
+                            <AnimatedContent direction="horizontal" className="absolute size-8 pointer-events-none right-0 top-full -translate-y-1/2">
+                                <Image src="/assets/mouse-arrow.svg" alt="mouse-arrow" width={24} height={24} />
+                            </AnimatedContent>
+                        </Link>
+                    </SignedIn>
+
+                    <SignedOut>
+                        <SignInButton mode="modal">
+                            <button className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full">
+                               Build My Resume
+                            </button>
+                        </SignInButton>
+                        <SignInButton mode="modal">
+                            <button className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full">
+                                Check ATS Score
+                                <AnimatedContent direction="horizontal" className="absolute size-8 pointer-events-none right-0 top-full -translate-y-1/2">
+                                    <Image src="/assets/mouse-arrow.svg" alt="mouse-arrow" width={24} height={24} />
+                                </AnimatedContent>
+                            </button>
+                        </SignInButton>
+                    </SignedOut>
                 </AnimatedContent>
             </div>
         </section>
