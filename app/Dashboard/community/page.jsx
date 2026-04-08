@@ -2,31 +2,52 @@
 import { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
-import { dummyCreationData } from "@/public/assets/asset";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function CommunityPage() {
     const [creations, setCreations] = useState([]);
-    const {user} = useUser();
+    const { user } = useUser();
 
     const [loading, setLoading] = useState(false);
 
     const fetchCreations = async () => {
-        setCreations(dummyCreationData);
-    };
-
-    const imageLikeToggle = async () => {
         try {
+            setLoading(true);
+            const { data } = await axios.get("/api/user/get-published-creations");
 
+            if (data.success) {
+                setCreations(data.creations);
+            } else {
+                toast.error(data.message);
+            }
         } catch (error) {
-
+            toast.error(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
-    // useEffect(() => {
-    //     if(user){
-    //         fetchCreations();
-    //     }
-    // }, [user]);
+    const imageLikeToggle = async (id) => {
+        try {
+            const { data } = await axios.post("/api/user/toggle-like-creation", { id });
+
+            if (data.success) {
+                toast.success(data.message);
+                await fetchCreations();
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
+    useEffect(() => {
+        if (user) {
+            fetchCreations();
+        }
+    }, [user]);
 
     return !loading ? (
         <div className="flex-1 h-full flex flex-col gap-4 p-6">
