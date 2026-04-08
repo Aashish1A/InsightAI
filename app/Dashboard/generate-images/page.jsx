@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Image, Sparkles } from "lucide-react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function GenerateImagesPage() {
 
@@ -14,6 +16,22 @@ export default function GenerateImagesPage() {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        try {
+            setLoading(true);
+            const prompt = `Generate an image of ${input} in the style ${selectedStyle}`;
+
+            const { data } = await axios.post("/api/ai/generate-image", { prompt, publish });
+
+            if (data.success) {
+                setContent(data.content);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
