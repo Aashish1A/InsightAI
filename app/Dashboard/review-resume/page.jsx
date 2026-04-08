@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { FileText, Sparkles } from "lucide-react";
 import Markdown from "react-markdown";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function ReviewResumePage() {
     const [input, setInput] = useState("");
@@ -10,6 +12,24 @@ export default function ReviewResumePage() {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        try {
+            setLoading(true);
+
+            const formData = new FormData();
+            formData.append("resume", input);
+
+            const { data } = await axios.post("/api/ai/resume-review", formData);
+
+            if (data.success) {
+                setContent(data.content);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
