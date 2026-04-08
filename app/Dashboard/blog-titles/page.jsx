@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Sparkles, Hash } from "lucide-react";
 import Markdown from "react-markdown";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function BlogTitlesPage() {
     const blogCategories = ["Technology", "Health", "Finance", "Travel", "Food", "Education", "Lifestyle"];
@@ -13,7 +15,22 @@ export default function BlogTitlesPage() {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        try {
+            setLoading(true);
+            const prompt = `Generate a blog title for the keyword ${input} in the category ${selectedCategory}`;
 
+            const { data } = await axios.post("/api/ai/generate-blog-title", { prompt });
+
+            if (data.success) {
+                setContent(data.content);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message);
+        } finally {
+            setLoading(false);
+        }
     }
     return (
         <div className="h-full overflow-y-scroll p-6 flex items-start flex-wrap gap-4 text-slate-700">
