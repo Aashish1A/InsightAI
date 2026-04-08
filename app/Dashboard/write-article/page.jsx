@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Edit, Sparkles } from "lucide-react";
 import Markdown from "react-markdown";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function WriteArticlePage() {
 
@@ -18,6 +20,22 @@ export default function WriteArticlePage() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    try {
+      setLoading(true);
+      const prompt = `Write an article about ${input} in ${selectedLength.text}`;
+
+      const { data } = await axios.post("/api/ai/generate-article", { prompt, length: selectedLength.length });
+
+      if (data.success) {
+        setContent(data.content);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

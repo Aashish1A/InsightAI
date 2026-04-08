@@ -1,0 +1,53 @@
+import { NextResponse } from "next/server";
+import { requireAuth } from "@/lib/auth";
+import sql from "@/lib/db";
+import OpenAI from "openai";
+import { clerkClient } from "@clerk/nextjs/server";
+
+const AI = new OpenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+  baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+});
+
+export async function POST(request) {
+  try {
+    const authData = await requireAuth();
+    const { userId, plan, free_usage } = authData;
+    const { prompt, length } = await request.json();
+
+    if (plan !== "premium" && free_usage >= 10) {
+      return NextResponse.json({
+        success: false,
+        message: "Limit reached. Upgrade to continue.",
+      });
+    }
+
+    const response = await AI.chat.completions.create({
+      model: "gemini-3-flash-preview",
+      messages: [
+        { role: "system", content: "You are an expert article writer. Your task is to write a well-structured, insightful article based on the user's prompt. Ensure the article naturally concludes and never cuts off abruptly." },
+        { role: "user", content: prompt }
+      ],
+      temperature: 0.7,
+      max_tokens: 4000, 
+    });
+
+    const content = response.choices[0].message.content;
+
+    await sql` INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${prompt}, ${content}, 'article') `;
+
+    if (plan !== "premium") {
+      const client = await clerkClient();
+      await client.users.updateUserMetadata(userId, {
+        privateMetadata: {
+          free_usage: free_usage + 1,
+        },
+      });
+    }
+
+    return NextResponse.json({ success: true, content });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ success: false, message: error.message }, { status: 500 });
+  }
+}
