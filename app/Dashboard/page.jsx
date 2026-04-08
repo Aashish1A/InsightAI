@@ -1,14 +1,35 @@
 "use client";
 import CreationItem from "@/components/creation-item";
 import useCurrentPlan from "@/hooks/use-current-plan";
-import { dummyCreationData } from "@/public/assets/asset";
 import { Gem, Sparkles } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function DashboardPage() {
-    const [creation] = useState(dummyCreationData);
-    const [loading] = useState(false);
+    const [creation, setCreations] = useState([]);
+    const [loading, setLoading] = useState(true);
     const { currentPlanName, isLoadingPlan } = useCurrentPlan();
+
+    const getDashboardData = async () => {
+        try {
+            const { data } = await axios.get("/api/user/get-user-creations");
+
+            if (data.success) {
+                setCreations(data.creations);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getDashboardData();
+    }, []);
 
     return (
         <div className="h-full overflow-y-scroll p-6">

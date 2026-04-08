@@ -1,5 +1,6 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter, Urbanist } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const inter = Inter({
@@ -54,8 +55,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <ClerkProvider>
-                <body className={`${inter.variable} ${urbanist.variable}`}>
-                    {children}
+                <body className={`${inter.variable} ${urbanist.variable}`}>                    <Toaster position="top-right" />                    {children}
                 </body>
             </ClerkProvider>
         </html>
