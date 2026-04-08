@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Scissors, Sparkles } from "lucide-react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function RemoveObjectPage() {
     const [input, setInput] = useState("");
@@ -11,6 +13,30 @@ export default function RemoveObjectPage() {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        try {
+            setLoading(true);
+
+            if (object.split(" ").length > 1) {
+                toast("Please enter only one object name");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", input);
+            formData.append("object", object);
+
+            const { data } = await axios.post("/api/ai/remove-image-object", formData);
+
+            if (data.success) {
+                setContent(data.content);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message);
+        } finally {
+            setLoading(false);
+        }
     }
     return (
         <div className="h-full overflow-y-scroll p-6 flex items-start flex-wrap gap-4 text-slate-700">
