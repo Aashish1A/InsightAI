@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Eraser, Sparkles } from "lucide-react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function RemoveBackgroundPage() {
     const [input, setInput] = useState("");
@@ -9,6 +11,24 @@ export default function RemoveBackgroundPage() {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
+        try {
+            setLoading(true);
+
+            const formData = new FormData();
+            formData.append("image", input);
+
+            const { data } = await axios.post("/api/ai/remove-image-background", formData);
+
+            if (data.success) {
+                setContent(data.content);
+            } else {
+                toast.error(data.message);
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message || error.message);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return (
