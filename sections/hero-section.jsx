@@ -37,10 +37,10 @@ export default function HeroSection() {
                 </AnimatedContent>
                 <AnimatedContent className="flex flex-col md:flex-row items-center gap-4 mt-6 w-full md:w-auto">
                     <SignedIn>
-                        <Link href="/Dashboard" className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full">
+                        <Link href="/resume-builder" className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full cursor-pointer">
                            Build My Resume
                         </Link>
-                        <Link href="/ATS-Checker" className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full">
+                        <Link href="/ATS-Checker" className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full cursor-pointer">
                             Check ATS Score
                             <AnimatedContent direction="horizontal" className="absolute size-8 pointer-events-none right-0 top-full -translate-y-1/2">
                                 <Image src="/assets/mouse-arrow.svg" alt="mouse-arrow" width={24} height={24} />
@@ -50,12 +50,12 @@ export default function HeroSection() {
 
                     <SignedOut>
                         <SignInButton mode="modal">
-                            <button className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full">
+                            <button className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full cursor-pointer">
                                Build My Resume
                             </button>
                         </SignInButton>
                         <SignInButton mode="modal">
-                            <button className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full">
+                            <button className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full cursor-pointer">
                                 Check ATS Score
                                 <AnimatedContent direction="horizontal" className="absolute size-8 pointer-events-none right-0 top-full -translate-y-1/2">
                                     <Image src="/assets/mouse-arrow.svg" alt="mouse-arrow" width={24} height={24} />
