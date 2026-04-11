@@ -8,8 +8,9 @@
 [![React](https://img.shields.io/badge/React-19.2.3-blue?style=for-the-badge&logo=react)](https://reactjs.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.18-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Clerk](https://img.shields.io/badge/Clerk-Auth-6C47FF?style=for-the-badge)](https://clerk.dev/)
+[![Neon](https://img.shields.io/badge/Neon-Database-00E599?style=for-the-badge&logo=postgresql)](https://neon.tech/)
 
-[Features](#-features) • [Demo](https://insight-ai-odpm.vercel.app/) • [Installation](#-installation) • [Usage](#-usage) • [Tech Stack](#-tech-stack) • [Contributing](#-contributing)
+[Features](#-features) • [Demo](https://insight-ai-xi.vercel.app/) • [Installation](#-getting-started) • [Usage](#-features) • [Tech Stack](#-tech-stack)
 
 </div>
 
@@ -17,56 +18,52 @@
 
 ## 📝 Overview
 
-InsightAI is a modern web application that helps users create professional resumes, check ATS compatibility, generate articles and blog titles, and use AI-powered image tools—all from a single dashboard. Built with Next.js, React, and TailwindCSS, it’s fast, responsive, and easy to use.
+**InsightAI** is a modern SaaS application that provides a suite of cutting-edge AI tools from a single centralized dashboard. Build professional resumes with ATS compatibility scoring, generate long-form articles, brainstorm blog titles, and utilize advanced AI image manipulation tools—all powered by Next.js, OpenAI, Cloudinary, and Neon Database.
 
 ---
 
 ## 🎯 Key Features
 
-- **Resume Builder:** Create, edit, and review professional resumes.
-- **ATS Score Checker:** Analyze your resume for ATS compatibility and get improvement suggestions (dedicated page).
-- **Article & Blog Title Generator:** Instantly generate high-quality articles and catchy blog titles.
-- **AI Image Tools:** Generate images, remove backgrounds, and erase objects with AI.
-- **All-in-One Dashboard:** Access all tools from a single, intuitive dashboard.
+- 📄 **Resume Builder & Reviewer:** Craft professional resumes with AI-driven feedback.
+- 🎯 **ATS Score Checker:** Analyze parsed PDFs (using `pdf-parse`) against ATS guidelines.
+- ✍️ **AI Copywriting:** Instantly generate high-quality articles and catchy blog titles via OpenAI.
+- 🎨 **AI Image Generation & Editing:** Create images from text, remove backgrounds, and erase objects seamlessly powered by external AI and Cloudinary.
+- 🌐 **Community Feed & Dashboard:** Publish your AI creations to a community board, like others' creations, and manage your personal history.
+- ✨ **Smooth Animations:** Buttery-smooth UI interactions using GSAP, Framer Motion, and Lenis for smooth scrolling.
 
 ---
 
 ## 🏗️ System Architecture
 
-```
+```text
 ┌──────────────────────────────────────────────────────────────┐
 │                        CLIENT SIDE                          │
 │  ┌────────────────────────────────────────────────────────┐  │
 │  │                InsightAI Web App (Next.js)             │  │
 │  │  - Dashboard: Resume, Article, Blog, Image Tools       │  │
-│  │  - ATS Checker Page                                   │  │
-│  │  - Auth, UI, Routing, API Calls                       │  │
-│  │  - TailwindCSS, Framer Motion, Clerk Auth             │  │
+│  │  - Community Feed & Creations UI                       │  │
+│  │  - TailwindCSS, GSAP, Framer Motion, Lenis             │  │
 │  └────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────┘
-                ↕ HTTPS/REST API & External Calls
+                ↕ HTTPS/REST API & Server Actions
 ┌──────────────────────────────────────────────────────────────┐
 │                        SERVER SIDE                          │
 │  ┌────────────────────────────────────────────────────────┐  │
-│  │      Next.js API Routes (Server Functions)             │  │
-│  │  - Handles AI API requests (OpenAI, Stability, etc.)   │  │
-│  │  - ATS Resume Analysis Logic                           │  │
-│  │  - User session/auth management                        │  │
+│  │      Next.js App Router (API Routes & Server Actions)  │  │
+│  │  - Handles AI Integrations (OpenAI)                    │  │
+│  │  - ATS Parsing & Scoring Logic (pdf-parse)             │  │
+│  │  - Manage Database Queries (Neon Serverless)           │  │
 │  └────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────┘
-                ↕ External AI APIs / Auth / Storage
+                ↕ External AI APIs / Auth / Database / Storage
 ┌──────────────────────────────────────────────────────────────┐
 │                    THIRD-PARTY SERVICES                     │
 │  ┌───────────────┐  ┌───────────────┐  ┌─────────────────┐  │
-│  │   OpenAI      │  │ Stability AI  │  │   Clerk Auth    │  │
-│  │ (Text/Images) │  │ (Images)      │  │ (User Mgmt)     │  │
+│  │   OpenAI      │  │ Cloudinary    │  │   Clerk Auth    │  │
+│  │ (Text/Images) │  │ (Image Store) │  │ (User Security) │  │
 │  └───────────────┘  └───────────────┘  └─────────────────┘  │
-└──────────────────────────────────────────────────────────────┘
-                ↕ Static Assets
-┌──────────────────────────────────────────────────────────────┐
-│                        STORAGE                              │
 │  ┌────────────────────────────────────────────────────────┐  │
-│  │           Public Assets (Images, Icons, etc.)          │  │
+│  │                Neon DB (Serverless Postgres)           │  │
 │  └────────────────────────────────────────────────────────┘  │
 └──────────────────────────────────────────────────────────────┘
 ```
@@ -75,55 +72,83 @@ InsightAI is a modern web application that helps users create professional resum
 
 ## 🛠️ Tech Stack
 
-- **Next.js 16** (App Router)
-- **React 19**
-- **TailwindCSS 4**
-- **Framer Motion, GSAP, Lenis, Lucide React**
-- **Clerk** (Authentication)
-- **pnpm** (Package manager)
+#### Frontend Layer
+- **Framework:** [Next.js 16.1](https://nextjs.org/) (App Directory)
+- **UI & Styling:** [React 19](https://reactjs.org/), [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animations:** [Framer Motion](https://framer.com/motion), [GSAP](https://gsap.com/), [Lenis](https://lenis.darkroom.engineering/) (Smooth Scroll)
+- **Icons:** [Lucide React](https://lucide.dev/)
+
+#### Backend & Database Layer
+- **Database:** [Neon Database (Serverless Postgres)](https://neon.tech/)
+- **Authentication:** [Clerk Auth](https://clerk.com/)
+- **Image Processing/Hosting:** [Cloudinary](https://cloudinary.com/)
+- **AI Integrations:** [OpenAI API](https://openai.com/)
 
 ---
 
 ## 🚀 Getting Started
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Aashish1A/InsightAI.git
-   cd InsightAI
-   ```
-2. **Install dependencies**
-   ```bash
-   pnpm install
-   # or
-   npm install
-   ```
-3. **Set up environment variables**
-   - Create a `.env.local` file in the root directory and add your Clerk and AI API keys.
-4. **Run the development server**
-   ```bash
-   pnpm dev
-   # or
-   npm run dev
-   ```
-5. **Open your browser**
-   - Go to [http://localhost:3000](http://localhost:3000)
+### Prerequisites
+Make sure you have Node.js and **pnpm** installed on your machine.
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Aashish1A/InsightAI.git
+cd InsightAI
+```
+
+### 2. Install dependencies
+```bash
+pnpm install
+```
+
+### 3. Set up environment variables
+Create a `.env.local` file in the root directory and configure the following required services:
+
+```env
+# CLERK AUTHENTICATION
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+# NEON DATABASE (PostgreSQL)
+DATABASE_URL=your_neon_db_connection_string
+
+# OPENAI
+OPENAI_API_KEY=your_openai_api_key
+
+# CLIPDROP
+CLIPDROP_API_KEY=your_clipdrop_api_key
+
+# CLOUDINARY
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+### 4. Run the development server
+```bash
+pnpm dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
 ---
 
-## 📁 Project Structure
+## 📂 Project Structure
 
-```
-InsightAI/
-├── app/                    # Next.js App Router
-│   ├── Dashboard/          # Dashboard and AI tools pages
-│   ├── ATS-Checker/        # Dedicated ATS score checker page
-│   ├── layout.jsx          # Root layout
-│   └── page.jsx            # Landing page
-├── components/             # Reusable React components
-├── sections/               # Landing page sections
-├── data/                   # Static data and configuration
-├── public/                 # Static assets
-└── package.json            # Dependencies and scripts
+```text
+├── app/                  # Next.js App Router (Pages & API routes)
+│   ├── api/ai/           # API routes for OpenAI and Cloudinary tasks
+│   ├── api/user/         # API routes for user actions & community features
+│   ├── ATS-Checker/      # PDF parsing and ATS scoring page
+│   ├── Dashboard/        # Core user dashboard and tool interfaces
+│   └── resume-builder/   # Interactive resume building tool
+├── components/           # Reusable React components (Navbar, animated UI)
+├── data/                 # Static data sets (pricing, faqs, features)
+├── hooks/                # Custom React hooks (e.g., use-current-plan.js)
+├── lib/                  # Configurations & DB connections (Auth, Cloudinary, Neon DB)
+└── sections/             # Larger page sections for the landing page
 ```
 
 ---
