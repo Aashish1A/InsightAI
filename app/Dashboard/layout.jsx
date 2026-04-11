@@ -14,7 +14,6 @@ export default function DashboardLayout({ children }) {
     
     const navItems = [
         { name: "Dashboard", href: "/Dashboard", icon: Home },
-        { name: "Create Resume", href: "/Dashboard/resume-builder", icon: FileEditIcon },
         { name: "Write Article", href: "/Dashboard/write-article", icon: PenSquare },
         { name: "Blog Titles", href: "/Dashboard/blog-titles", icon: Hash },
         { name: "Generate Images", href: "/Dashboard/generate-images", icon: ImageIcon },
