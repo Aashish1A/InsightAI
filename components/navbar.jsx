@@ -34,7 +34,7 @@ export default function Navbar() {
                         <SignedOut>
                             <div className="hidden md:flex items-center gap-2">
                                 <SignUpButton mode="modal">
-                                    <button className="py-2.5 px-6 text-sm shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)] bg-orange-500 text-white rounded-full">
+                                    <button className="py-2.5 px-6 text-sm shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)] bg-orange-500 text-white rounded-full cursor-pointer">
                                         Get Started
                                     </button>
                                 </SignUpButton>
@@ -42,6 +42,9 @@ export default function Navbar() {
                         </SignedOut>
                         <SignedIn>
                             <div className="hidden md:flex items-center gap-3">
+                                <Link href="/Dashboard" className="py-2.5 px-6 text-sm shadow-[inset_0_2px_4px_rgba(255,255,255,0.6)] bg-orange-500 text-white rounded-full cursor-pointer">
+                                    Dashboard
+                                </Link>
                                 <UserButton afterSignOutUrl="/" />
                             </div>
                         </SignedIn>
@@ -67,9 +70,9 @@ export default function Navbar() {
                         </SignUpButton>
                     </SignedOut>
                     <SignedIn>
-                        <div className="py-2.5 px-6 w-max text-sm border border-neutral-300 rounded-full">
-                            Account
-                        </div>
+                        <Link href="/Dashboard" className="py-2.5 px-6 w-max text-sm border border-orange-500 bg-orange-500 text-white rounded-full" onClick={() => setIsMenuOpen(false)}>
+                            Dashboard
+                        </Link>
                     </SignedIn>
                 </div>
             </div>
