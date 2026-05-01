@@ -37,7 +37,7 @@ export default function HeroSection() {
                 </AnimatedContent>
                 <AnimatedContent className="flex flex-col md:flex-row items-center gap-4 mt-6 w-full md:w-auto">
                     <SignedIn>
-                        <Link href="/resume-builder" className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full cursor-pointer">
+                        <Link href="/resume-builder/dashboard" className="py-3 w-full md:w-auto px-8 border border-orange-200 bg-linear-to-tl from-orange-600 to-orange-500 text-white text-center rounded-full cursor-pointer">
                            Build My Resume
                         </Link>
                         <Link href="/ATS-Checker" className="relative py-3 w-full md:w-auto px-8 bg-white/50 text-gray-600 font-medium text-center border border-white rounded-full cursor-pointer">
