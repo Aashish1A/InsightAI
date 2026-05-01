@@ -36,36 +36,35 @@
 ## 🏗️ System Architecture
 
 ```text
-┌──────────────────────────────────────────────────────────────┐
-│                        CLIENT SIDE                          │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │                InsightAI Web App (Next.js)             │  │
-│  │  - Dashboard: Resume, Article, Blog, Image Tools       │  │
-│  │  - Community Feed & Creations UI                       │  │
-│  │  - TailwindCSS, GSAP, Framer Motion, Lenis             │  │
-│  └────────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────────┘
-                ↕ HTTPS/REST API & Server Actions
-┌──────────────────────────────────────────────────────────────┐
-│                        SERVER SIDE                          │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │      Next.js App Router (API Routes & Server Actions)  │  │
-│  │  - Handles AI Integrations (OpenAI)                    │  │
-│  │  - ATS Parsing & Scoring Logic (pdf-parse)             │  │
-│  │  - Manage Database Queries (Neon Serverless)           │  │
-│  └────────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────────┘
-                ↕ External AI APIs / Auth / Database / Storage
-┌──────────────────────────────────────────────────────────────┐
-│                    THIRD-PARTY SERVICES                     │
-│  ┌───────────────┐  ┌───────────────┐  ┌─────────────────┐  │
-│  │   OpenAI      │  │ Cloudinary    │  │   Clerk Auth    │  │
-│  │ (Text/Images) │  │ (Image Store) │  │ (User Security) │  │
-│  └───────────────┘  └───────────────┘  └─────────────────┘  │
-│  ┌────────────────────────────────────────────────────────┐  │
-│  │                Neon DB (Serverless Postgres)           │  │
-│  └────────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                            FRONTEND (Client)                           │
+│  ┌────────────────────┐   ┌────────────────────┐   ┌────────────────┐  │
+│  │   Resume Builder   │   │  AI Copywriting    │   │  Image Tools   │  │
+│  │ (Templates, Forms) │   │ (Articles, Blogs)  │   │ (Gen & Edit)   │  │
+│  └──────────┬─────────┘   └──────────┬─────────┘   └────────┬───────┘  │
+│             │                        │                      │          │
+│             └───────────► UI / UX ◄──┴──────────────────────┘          │
+│                  (Next.js, Tailwind, Framer Motion)                    │
+└─────────────────────────────────┬──────────────────────────────────────┘
+                                  │ HTTP / REST API / Server Actions
+┌─────────────────────────────────▼──────────────────────────────────────┐
+│                            BACKEND (Server)                            │
+│  ┌──────────────────────────────────────────────────────────────────┐  │
+│  │                     Next.js API Routes Layer                     │  │
+│  │  ┌───────────────┐ ┌────────────────┐ ┌─────────┐ ┌───────────┐  │  │
+│  │  │ /api/resumes/ │ │    /api/ai/    │ │/api/user│ │ATS Parsing│  │  │
+│  │  │ Postgres CRUD │ │ OpenAI/StableD │ │  Feeds  │ │ pdf-parse │  │  │
+│  │  └──────┬────────┘ └──────┬─────────┘ └────┬────┘ └─────┬─────┘  │  │
+│  └─────────┼─────────────────┼────────────────┼────────────┼────────┘  │
+└────────────┼─────────────────┼────────────────┼────────────┼───────────┘
+             │                 │                │            │
+┌────────────▼────────┐ ┌──────▼────────┐ ┌─────▼──────┐ ┌───▼───────────┐
+│      DATABASE       │ │  AI SERVICES  │ │   MEDIA    │ │     AUTH      │
+│ ┌─────────────────┐ │ │ ┌───────────┐ │ │ ┌────────┐ │ │ ┌───────────┐ │
+│ │ Neon Serverless │ │ │ │  OpenAI   │ │ │ │ImageKit│ │ │ │   Clerk   │ │
+│ │  (PostgreSQL)   │ │ │ │ Clipdrop  │ │ │ │Cloudin.│ │ │ │  (Users)  │ │
+│ └─────────────────┘ │ │ └───────────┘ │ │ └────────┘ │ │ └───────────┘ │
+└─────────────────────┘ └───────────────┘ └────────────┘ └───────────────┘
 ```
 
 ---
@@ -81,7 +80,7 @@
 #### Backend & Database Layer
 - **Database:** [Neon Database (Serverless Postgres)](https://neon.tech/)
 - **Authentication:** [Clerk Auth](https://clerk.com/)
-- **Image Processing/Hosting:** [Cloudinary](https://cloudinary.com/)
+- **Image Processing/Hosting:** [Cloudinary](https://cloudinary.com/) & [ImageKit](https://imagekit.io/)
 - **AI Integrations:** [OpenAI API](https://openai.com/)
 
 ---
@@ -117,6 +116,8 @@ DATABASE_URL=your_neon_db_connection_string
 
 # OPENAI
 OPENAI_API_KEY=your_openai_api_key
+OPENAI_BASE_URL="https://generativelanguage.googleapis.com/v1beta/openai/"
+OPENAI_MODEL="gemini-3-flash-preview"
 
 # CLIPDROP
 CLIPDROP_API_KEY=your_clipdrop_api_key
@@ -125,6 +126,9 @@ CLIPDROP_API_KEY=your_clipdrop_api_key
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
+
+# IMAGEKIT
+IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
 ```
 
 ### 4. Run the development server
@@ -140,6 +144,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 ```text
 ├── app/                  # Next.js App Router (Pages & API routes)
 │   ├── api/ai/           # API routes for OpenAI and Cloudinary tasks
+│   ├── api/resumes/      # API routes and Postgres models for Resume Builder
 │   ├── api/user/         # API routes for user actions & community features
 │   ├── ATS-Checker/      # PDF parsing and ATS scoring page
 │   ├── Dashboard/        # Core user dashboard and tool interfaces
@@ -147,7 +152,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 ├── components/           # Reusable React components (Navbar, animated UI)
 ├── data/                 # Static data sets (pricing, faqs, features)
 ├── hooks/                # Custom React hooks (e.g., use-current-plan.js)
-├── lib/                  # Configurations & DB connections (Auth, Cloudinary, Neon DB)
+├── lib/                  # Configurations & DB connections (Auth, ImageKit, Neon DB)
+├── public/assets/        # Static assets and dynamic Resume Templates
 └── sections/             # Larger page sections for the landing page
 ```
 
