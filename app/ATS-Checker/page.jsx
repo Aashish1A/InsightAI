@@ -7,7 +7,7 @@ export default function ATSCheckerPage() {
                     Features will come soon
                 </h1>
                 <p className="mt-3 text-gray-500">
-                    We're building a dedicated ATS score checker with detailed insights.
+                    We are building a dedicated ATS score checker with detailed insights.
                 </p>
             </div>
         </div>
