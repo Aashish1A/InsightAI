@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useUser } from "@clerk/nextjs";
 
 export default function Dashboard() {
+  const { user } = useUser();
   const [allResumes, setAllResumes] = useState([]);
   const [showCreteResume, setShowCreteResume] = useState(false);
   const [title, setTitle] = useState("");
@@ -82,7 +84,7 @@ export default function Dashboard() {
     <div>
       <div className="max-w-7xl mx-auto px-4 py-8">
         <p className="text-2xl font-medium mb-6 bg-linear-to-r from-slate-600 to-slate-700 bg-clip-text text-transparent sm:hidden">
-          Welcome, John Doe
+          Welcome, {user?.fullName || user?.firstName || "User"}
         </p>
 
         <div className="flex gap-4">
