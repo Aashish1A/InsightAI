@@ -5,10 +5,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import AnimatedContent from "./animated-content";
-import { SignedIn, SignedOut, SignUpButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { user, isLoaded } = useUser();
+
+    useEffect(() => {
+        if (!isLoaded) return;
+
+        if (user && !sessionStorage.getItem("hasLoggedIn")) {
+            toast.success("Successfully logged in!");
+            sessionStorage.setItem("hasLoggedIn", "true");
+        } else if (!user && sessionStorage.getItem("hasLoggedIn")) {
+            sessionStorage.removeItem("hasLoggedIn");
+            toast.success("Successfully logged out!");
+        }
+    }, [user, isLoaded]);
     
     return (
         <>

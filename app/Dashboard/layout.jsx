@@ -5,13 +5,27 @@ import useCurrentPlan from "@/hooks/use-current-plan";
 import { usePathname } from "next/navigation";
 import { Home, PenSquare, Hash, Image as ImageIcon, Eraser, Scissors, FileText, FileEditIcon, Users, LogOut } from "lucide-react";
 import { SignedIn, SignedOut, useClerk, useUser } from "@clerk/nextjs";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
-    const { user } = useUser();
+    const { user, isLoaded } = useUser();
     const { openUserProfile, signOut } = useClerk();
     const { currentPlanName, isLoadingPlan } = useCurrentPlan();
     
+    useEffect(() => {
+        if (!isLoaded) return;
+
+        if (user && !sessionStorage.getItem("hasLoggedIn")) {
+            toast.success("Successfully logged in!");
+            sessionStorage.setItem("hasLoggedIn", "true");
+        } else if (!user && sessionStorage.getItem("hasLoggedIn")) {
+            sessionStorage.removeItem("hasLoggedIn");
+            toast.success("Successfully logged out!");
+        }
+    }, [user, isLoaded]);
+
     const navItems = [
         { name: "Dashboard", href: "/Dashboard", icon: Home },
         { name: "Write Article", href: "/Dashboard/write-article", icon: PenSquare },
@@ -97,7 +111,9 @@ export default function DashboardLayout({ children }) {
                                     {isLoadingPlan ? "Loading..." : `${currentPlanName} Plan`}
                                 </p>
                             </button>
-                            <button type="button" onClick={() => signOut({ redirectUrl: "/" })} className="text-zinc-400 hover:text-zinc-600 cursor-pointer shrink-0" aria-label="Sign out" title="Sign out" >
+                            <button type="button" onClick={() => {
+                                signOut({ redirectUrl: "/" });
+                            }} className="text-zinc-400 hover:text-zinc-600 cursor-pointer shrink-0" aria-label="Sign out" title="Sign out" >
                                 <LogOut size={16} />
                             </button>
                         </div>
