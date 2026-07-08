@@ -232,7 +232,7 @@ export default function ResumeBuilder() {
                 </button>
 
                 <button onClick={downloadResume} className="flex items-center p-2 px-6 gap-2 text-xs bg-linear-to-br from-green-100 to-green-200 text-green-600 ring-green-300 rounded-lg hover:ring transition-colors" >
-                  <DownloadIcon className="size-4" /> Download
+                  <DownloadIcon className="size-4" /> Print
                 </button>
               </div>
             </div>
