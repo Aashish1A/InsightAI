@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import pdfParse from "pdf-parse";
+import pdf from "pdf-parse/lib/pdf-parse.js";
 
 const AI = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -20,7 +20,7 @@ export async function POST(request) {
     
     let text = "";
     if (file.type === "application/pdf" || file.name.endsWith(".pdf")) {
-        const pdfData = await pdfParse(buffer);
+        const pdfData = await pdf(buffer);
         text = pdfData.text;
     } else {
         // Fallback for docx or other texts if parsed simply (might not be perfectly clean)
